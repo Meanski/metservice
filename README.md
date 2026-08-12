@@ -42,17 +42,19 @@ Point any MCP client at the built `dist/index.js`. For Claude Desktop, add this 
 {
   "mcpServers": {
     "metservice-tide": {
-      "command": "/Users/seanwoodliffe/.nvm/versions/node/v22.22.2/bin/node",
-      "args": ["~/metservice/dist/index.js"]
+      "command": "node",
+      "args": ["/absolute/path/to/metservice/dist/index.js"]
     }
   }
 }
 ```
 
-Use the absolute path to `node`. Claude Desktop is a GUI app and doesn't inherit your shell's
-`PATH`, so a bare `"node"` (especially an nvm install) fails to launch. No key is needed here — the
-server reads it from `.env`. To pass the key explicitly instead, add
-`"env": { "METSERVICE_TIDE_KEY": "..." }`; an injected value takes precedence over `.env`.
+Use an absolute path for the script — `~` and `$HOME` aren't expanded. No key is needed here; the
+server reads it from `.env`. To pass it explicitly instead, add
+`"env": { "METSERVICE_TIDE_KEY": "..." }`, which takes precedence over `.env`.
+
+If a bare `"node"` fails to launch (common with nvm — GUI apps don't inherit your shell `PATH`),
+set `"command"` to the absolute path from `which node`.
 
 ## Configuration
 
@@ -71,9 +73,9 @@ server reads it from `.env`. To pass the key explicitly instead, add
   excessive polling, so repeated calls in a session come from memory.
 - **Errors.** RFC 9457 `problem+json` is parsed into a readable message — title, detail, each
   invalid parameter, and the `request_id` for bug reports — rather than dumped as raw JSON.
-- **Verified quirks.** Uses `bounding_box`, sends `radius`
-  with lat/lon model discovery, and treats the grouped `locations[]` envelope as the shape for
-  every prediction endpoint. This may all change as the API developers (currently beta)
+- **Verified quirks.** Uses `bounding_box`, sends `radius` with lat/lon model discovery, and treats
+  the grouped `locations[]` envelope as the shape for every prediction endpoint. Any of these may
+  change while the API is in beta.
 
 ## Layout
 
