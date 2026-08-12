@@ -1,0 +1,31 @@
+{
+  "name": "metservice-tide-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local MCP server for the MetService Tide API v4 (beta).",
+  "type": "module",
+  "bin": {
+    "metservice-tide-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "smoke": "node dist/smoke.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "typescript": "~5.7"
+  }
+}
